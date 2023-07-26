@@ -22,8 +22,29 @@ describe('AppComponent', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get the correct signal', (done) => {
+  it('should get the correct signal override in IT', (done) => {
     store.overrideSelector(selectValue, "testValue")
+    store.select(selectValue).subscribe((v) => {
+      expect(v).toBe("testValue")
+      expect(service.getValue()()).toBe("testValue")
+      done()
+    })
+  });
+});
+describe('AppComponent', () => {
+  let store: MockStore;
+  let service: StoreService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideMockStore()],
+      declarations: [AppComponent]
+    })
+    store = TestBed.inject<MockStore>(MockStore);
+    service = TestBed.inject(StoreService);
+    store.overrideSelector(selectValue, "testValue")
+  });
+  it('should get the correct signal override before each', (done) => {
     store.select(selectValue).subscribe((v) => {
       expect(v).toBe("testValue")
       expect(service.getValue()()).toBe("testValue")

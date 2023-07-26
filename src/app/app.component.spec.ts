@@ -11,7 +11,6 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideMockStore()],
-      declarations: [AppComponent]
     })
     store = TestBed.inject<MockStore>(MockStore);
     service = TestBed.inject(StoreService);
@@ -23,6 +22,7 @@ describe('AppComponent', () => {
   });
 
   it('should get the correct signal override in IT', (done) => {
+    // overrideSelector in beforeEach make the test failling
     store.overrideSelector(selectValue, "testValue")
     store.select(selectValue).subscribe((v) => {
       expect(v).toBe("testValue")
@@ -38,10 +38,10 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideMockStore()],
-      declarations: [AppComponent]
     })
     store = TestBed.inject<MockStore>(MockStore);
     service = TestBed.inject(StoreService);
+    // overrideSelector in beforeEach make the test passing
     store.overrideSelector(selectValue, "testValue")
   });
   it('should get the correct signal override before each', (done) => {

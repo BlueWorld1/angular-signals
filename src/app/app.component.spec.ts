@@ -22,7 +22,8 @@ describe('AppComponent', () => {
   });
 
   it('should get the correct signal override in IT', (done) => {
-    // overrideSelector in beforeEach make the test failling
+    // overrideSelector in it make the test failling
+    
     store.overrideSelector(selectValue, "testValue")
     store.select(selectValue).subscribe((v) => {
       expect(v).toBe("testValue")
